@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: open5gcore
+spec:
+  destination:
+    name: in-cluster
+    namespace: open5gcore
+    server: ''
+  source:
+    path: 5gcore
+    repoURL: 'https://github.com/adetalhouet/cnvopen5gcore'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+

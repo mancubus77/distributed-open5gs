@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: open5gran
+spec:
+  destination:
+    name: in-cluster
+    namespace: open5gran
+    server: ''
+  source:
+    path: 5gran
+    repoURL: 'https://github.com/adetalhouet/cnvopen5gcore'
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
