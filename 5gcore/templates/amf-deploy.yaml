@@ -67,7 +67,7 @@ spec:
           imagePullPolicy: {{ .Values.open5gcore.image.pullPolicy }}
           ports:
             - containerPort: 38412
-              name: amf-open5gs-sctp
+              name: amf-sctp
               protocol: SCTP
           securityContext:
             privileged: true
