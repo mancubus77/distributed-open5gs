@@ -65,6 +65,10 @@ spec:
         - name: amf
           image: "{{ .Values.open5gcore.image.repository }}:{{ .Values.open5gcore.image.tag }}"
           imagePullPolicy: {{ .Values.open5gcore.image.pullPolicy }}
+          ports:
+          - containerPort: 38412
+            name: amf-open5gs-sctp
+            protocol: SCTP
           securityContext:
             privileged: true
           command: ["open5gs-amfd", "-c", "/open5gs/config-map/amf.yaml"]
