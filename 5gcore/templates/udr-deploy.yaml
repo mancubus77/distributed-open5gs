@@ -34,6 +34,8 @@ spec:
         - name: udr
           image: "{{ .Values.open5gcore.image.repository }}:{{ .Values.open5gcore.image.tag }}"
           imagePullPolicy: {{ .Values.open5gcore.image.pullPolicy }}
+          securityContext:
+            privileged: true
           command: ["open5gs-udrd", "-c", "/open5gs/config-map/udr.yaml"]
           volumeMounts:
           - name: open5gs-udr-config
