@@ -1,3 +1,4 @@
+{{ if .Values.smf.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -34,3 +35,4 @@ data:
       pfcp:
         - name: open5gs-upf
           dnn: {{ .Values.dnn }}
+{{ end }}

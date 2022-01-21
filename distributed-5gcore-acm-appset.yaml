@@ -1,6 +1,38 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
+  name: skupper
+  namespace: openshift-gitops
+spec:
+  generators:
+    - clusterDecisionResource:
+        configMapRef: acm-placement
+        labelSelector:
+          matchLabels:
+            cluster.open-cluster-management.io/placement: 5g-core-clusters
+        requeueAfterSeconds: 180
+  template:
+    metadata:
+      name: 'skupper-{{name}}'
+    spec:
+      project: default
+      source:
+        repoURL: 'https://github.com/adetalhouet/cnvopen5gcore'
+        targetRevision: main
+        path: 'skupper/overlays/{{name}}'
+      destination:
+        server: '{{server}}'
+        namespace: open5gcore
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
   name: distributed-5g-core
   namespace: openshift-gitops
 spec:
@@ -19,7 +51,7 @@ spec:
       source:
         repoURL: 'https://github.com/adetalhouet/cnvopen5gcore'
         targetRevision: main
-        path: 'cluster/{{name}}'
+        path: 'distributed-5gcore/{{name}}'
       destination:
         server: '{{server}}'
         namespace: open5gcore
@@ -29,17 +61,8 @@ spec:
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: ggithubcom-adetalhouet-cnvopen5gcore-ns
----
-apiVersion: apps.open-cluster-management.io/v1
-kind: Channel
-metadata:
-  name: ggithubcom-adetalhouet-cnvopen5gcore
-  namespace: ggithubcom-adetalhouet-cnvopen5gcore-ns
-spec:
-  type: Git
-  pathname: 'https://github.com/adetalhouet/cnvopen5gcore'
+      ignoreDifferences:
+      - group: ""
+        kind: Secret
+        jsonPointers:
+        - /data

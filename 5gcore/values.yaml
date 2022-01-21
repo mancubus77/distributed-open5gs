@@ -14,19 +14,36 @@ webui:
 
 dnn: internet  
 
+k8s:
+ interface: eth0
+
 amf:
+  enabled: true
   mcc: 208
   mnc: 93
   tac: 7
-
-smf:
-  # when distributed, this should use the *-shared service so NRF can reach back through skupper
-  serviceName: open5gs-smf #open5gs-smf-shared
-
+ausf:
+  enabled: true
+mongo:
+  enabled: true
 nrf:
+  enabled: true
   # the distributed component should use the *-shared service, as it will be exposed through skupper
   serviceName: open5gs-nrf #open5gs-nrf-shared
-
-k8s:
- interface: eth0
+nssf:
+  enabled: true
+pcf:
+  enabled: true
+smf:
+  enabled: true
+  # when distributed, this should use the *-shared service so NRF can reach back through skupper
+  serviceName: open5gs-smf #open5gs-smf-shared
+udm:
+  enabled: true
+udr:
+  enabled: true
+upf:
+  enabled: true
+webui:
+  enabled: true
  

@@ -1,3 +1,4 @@
+{{ if .Values.amf.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -80,3 +81,4 @@ spec:
         - name: open5gs-amf-config
           configMap:
             name: open5gs-amf-config
+{{ end }}

@@ -1,3 +1,4 @@
+{{ if .Values.webui.enabled }}
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
@@ -72,3 +73,4 @@ spec:
           value: "production"  
         - name: HOSTNAME
           value: '0.0.0.0'               
+{{ end }}
