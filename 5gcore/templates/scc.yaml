@@ -1,0 +1,42 @@
+kind: SecurityContextConstraints
+apiVersion: security.openshift.io/v1
+metadata:
+  name: scc-admin
+allowPrivilegedContainer: true
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: RunAsAny
+fsGroup:
+  type: RunAsAny
+supplementalGroups:
+  type: RunAsAny
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: scc-admin-role
+  namespace: open5gcore 
+rules:
+- apiGroups:
+  - security.openshift.io 
+  resourceNames:
+  - scc-admin 
+  resources:
+  - securitycontextconstraints 
+  verbs: 
+  - use
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: scc-admin-rolebinding
+  namespace: open5gcore
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: open5gcore
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: scc-admin-role
