@@ -18,6 +18,9 @@ dnn: internet
 k8s:
  interface: eth0
 
+serviceMesh:
+  enabled: true
+
 amf:
   enabled: true
   mcc: 208

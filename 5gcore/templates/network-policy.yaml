@@ -1,0 +1,18 @@
+{{ if .Values.serviceMesh.enabled }}
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: istio-mesh-basic
+  namespace: open5gcore
+spec:
+  podSelector:
+    matchLabels:
+      bla: blah
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              maistra.io/member-of: istio-system
+  policyTypes:
+    - Ingress
+{{ end }}
