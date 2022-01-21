@@ -59,7 +59,7 @@ spec:
         path: '5gcore'
         helm: 
           valueFiles:
-            - '{{name}-values.yaml'
+            - '{{name}}-values.yaml'
       destination:
         server: '{{server}}'
         namespace: open5gcore
