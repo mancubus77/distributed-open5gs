@@ -1,56 +1,50 @@
 # Default values for 5gcore-helm.
 
-# -------------------------------------------------
-# This will come from the distributed-5gcore.
-# To deploy standalone instance, uncomment bellow
-# -------------------------------------------------
+open5gcore:
+  image:
+    repository: docker.io/efatnar/open5gcore
+    pullPolicy: IfNotPresent
+    tag: "v1.1"
 
+webui:
+  enabled: true
+  image:
+    repository: docker.io/efatnar/open5gcore-webui
+    pullPolicy: IfNotPresent
+    tag: "v1.1"
 
-# open5gcore:
-#   image:
-#     repository: docker.io/efatnar/open5gcore
-#     pullPolicy: IfNotPresent
-#     tag: "v1.1"
+dnn: internet  
 
-# webui:
-#   enabled: true
-#   image:
-#     repository: docker.io/efatnar/open5gcore-webui
-#     pullPolicy: IfNotPresent
-#     tag: "v1.1"
+k8s:
+ interface: eth0
 
-# dnn: internet  
+serviceMesh:
+  enabled: true
 
-# k8s:
-#  interface: eth0
-
-# serviceMesh:
-#   enabled: true
-
-# amf:
-#   enabled: true
-#   mcc: 208
-#   mnc: 93
-#   tac: 7
-# ausf:
-#   enabled: true
-# mongo:
-#   enabled: true
-# nrf:
-#   enabled: true
-#   # the distributed component should use the *-shared service, as it will be exposed through skupper
-#   serviceName: open5gs-nrf #open5gs-nrf-shared
-# nssf:
-#   enabled: true
-# pcf:
-#   enabled: true
-# smf:
-#   enabled: true
-#   # when distributed, this should use the *-shared service so NRF can reach back through skupper
-#   serviceName: open5gs-smf #open5gs-smf-shared
-# udm:
-#   enabled: true
-# udr:
-#   enabled: true
-# upf:
-#   enabled: true
+amf:
+  enabled: true
+  mcc: 208
+  mnc: 93
+  tac: 7
+ausf:
+  enabled: true
+mongo:
+  enabled: true
+nrf:
+  enabled: true
+  # the distributed component should use the *-shared service, as it will be exposed through skupper
+  serviceName: open5gs-nrf #open5gs-nrf-shared
+nssf:
+  enabled: true
+pcf:
+  enabled: true
+smf:
+  enabled: true
+  # when distributed, this should use the *-shared service so NRF can reach back through skupper
+  serviceName: open5gs-smf #open5gs-smf-shared
+udm:
+  enabled: true
+udr:
+  enabled: true
+upf:
+  enabled: true
