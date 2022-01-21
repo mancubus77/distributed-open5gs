@@ -2,6 +2,9 @@ apiVersion: v1
 kind: Service
 metadata:
   name: open5gs-smf
+  annotations:
+    skupper.io/proxy: http2
+    skupper.io/address: open5gs-smf-shared
   labels:
     epc-mode: smf
 spec:

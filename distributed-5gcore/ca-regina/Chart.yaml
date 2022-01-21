@@ -1,0 +1,9 @@
+apiVersion: v2
+name: open5gcore-ca-regina
+description: Open 5G Core regina
+version: 0.0.1
+
+dependencies:
+- name: open5gcore-helm
+  version: 0.0.1
+  repository: "file://../../5gcore/"

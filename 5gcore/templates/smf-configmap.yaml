@@ -13,7 +13,7 @@ data:
     smf:
         sbi:     
         - addr: 0.0.0.0
-          advertise: open5gs-smf
+          advertise: {{ .Values.smf.serviceName }}
         pfcp:
            dev: {{ .Values.k8s.interface }}
         gtpc:
@@ -29,7 +29,7 @@ data:
         mtu: 1400
     nrf:
      sbi:
-      name: open5gs-nrf 
+      name: {{ .Values.nrf.serviceName }}
     upf:
       pfcp:
         - name: open5gs-upf

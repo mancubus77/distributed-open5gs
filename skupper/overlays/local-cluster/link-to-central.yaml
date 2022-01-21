@@ -1,0 +1,44 @@
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Channel
+metadata:
+  name: open5gcore-skupper-resources
+  namespace: open5gcore
+spec:
+  pathname: open5gcore
+  type: Namespace
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: Subscription
+metadata:
+  name: open5gcore-skupper-sub
+  namespace: open5gcore
+spec:
+  channel: open5gcore/open5gcore-skupper-resources
+  placement:
+    placementRef:
+      kind: PlacementRule
+      name: open5gcore-skupper-placement
+---
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: open5gcore-skupper-placement
+  namespace: open5gcore
+spec:
+  clusterConditions:
+  - status: "True"
+    type: ManagedClusterConditionAvailable
+  clusterSelector:
+    matchLabels:
+      5g-core: "True"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: link-to-central
+  namespace: open5gcore
+  annotations:
+    apps.open-cluster-management.io/deployables: "true"
+  labels:
+    skupper.io/type: connection-token-request
