@@ -7,6 +7,7 @@ open5gcore:
     tag: "v1.1"
 
 webui:
+  enabled: true
   image:
     repository: docker.io/efatnar/open5gcore-webui
     pullPolicy: IfNotPresent
@@ -44,6 +45,3 @@ udr:
   enabled: true
 upf:
   enabled: true
-webui:
-  enabled: true
- 
