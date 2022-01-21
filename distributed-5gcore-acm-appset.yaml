@@ -56,7 +56,10 @@ spec:
       source:
         repoURL: 'https://github.com/adetalhouet/cnvopen5gcore'
         targetRevision: main
-        path: 'distributed-5gcore/{{name}}'
+        path: '5gcore'
+        helm: 
+          valueFiles:
+            - '{{name}-values.yaml'
       destination:
         server: '{{server}}'
         namespace: open5gcore
