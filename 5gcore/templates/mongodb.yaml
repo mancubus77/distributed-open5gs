@@ -3,9 +3,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb-svc
-  annotations:
-    skupper.io/proxy: tcp
-    skupper.io/address: mongodb-svc-shared
 spec:
   ports:
   - port: 27017
