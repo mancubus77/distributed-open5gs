@@ -15,7 +15,6 @@ data:
         sbi:     
         - addr: 0.0.0.0
           name: {{ .Values.smf.serviceName }}
-          advertise: {{ .Values.smf.serviceName }}.svc.local
         pfcp:
            dev: {{ .Values.k8s.interface }}
         gtpc:
