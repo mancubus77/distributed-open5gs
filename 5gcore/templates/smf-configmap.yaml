@@ -14,7 +14,7 @@ data:
     smf:
         sbi:     
           - dev: {{ .Values.k8s.interface }}
-            advertise: {{ .Values.smf.serviceName }}
+            advertise: {{ .Values.smf.serviceName }}.{{ .Release.Namespace }}.svc.cluster.local
         pfcp:
            dev: {{ .Values.k8s.interface }}
         gtpc:
