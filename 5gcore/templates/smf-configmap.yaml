@@ -14,7 +14,8 @@ data:
     smf:
         sbi:     
         - addr: 0.0.0.0
-          advertise: {{ .Values.smf.serviceName }}
+          name: {{ .Values.smf.serviceName }}
+          advertise: {{ .Values.smf.serviceName }}.svc.local
         pfcp:
            dev: {{ .Values.k8s.interface }}
         gtpc:
