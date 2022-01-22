@@ -13,7 +13,8 @@ data:
         no_ipv6: true
     smf:
         sbi:     
-        - name: {{ .Values.smf.serviceName }}
+        - addr: {{ .Values.smf.serviceName }}
+          advertise: {{ .Values.smf.serviceName }}
         pfcp:
            dev: {{ .Values.k8s.interface }}
         gtpc:
