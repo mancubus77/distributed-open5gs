@@ -4,6 +4,16 @@ apiVersion: networking.k8s.io/v1
 metadata:
   name: istio-mesh-basic
   namespace: open5gcore
+  labels:
+    app: istio
+    app.kubernetes.io/part-of: istio
+    app.kubernetes.io/instance: istio-system
+    maistra.io/owner-name: basic
+    release: istio
+    app.kubernetes.io/component: mesh-config
+    app.kubernetes.io/managed-by: maistra-istio-operator
+    maistra.io/owner: istio-system
+    app.kubernetes.io/name: mesh-config
 spec:
   podSelector:
     matchLabels:
