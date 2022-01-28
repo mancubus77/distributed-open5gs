@@ -5,7 +5,7 @@ ran:
     pullPolicy: IfNotPresent
     tag: "v1.5"
   amf:
-    address: 172.30.203.154 
+    address: amf-open5gs-sctp
     port: 38412
   user:
     imsi: "imsi-208930000000001"
