@@ -11,8 +11,8 @@ data:
       #file: /var/log/open5gs/udm.log
     udm:
       sbi:   
-      - addr: 0.0.0.0
-        advertise: open5gs-udm
+      - dev: {{ .Values.k8s.interface }}
+        advertise: open5gs-udm.{{ .Release.Namespace }}.svc.cluster.local
     nrf:
      sbi:
       name: open5gs-nrf

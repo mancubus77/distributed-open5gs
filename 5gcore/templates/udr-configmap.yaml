@@ -12,8 +12,8 @@ data:
     db_uri: mongodb://mongodb-svc/open5gs
     udr:
       sbi:
-      - addr: 0.0.0.0
-        advertise: open5gs-udr
+      - dev: {{ .Values.k8s.interface }}
+        advertise: open5gs-udr.{{ .Release.Namespace }}.svc.cluster.local
     nrf:
      sbi:
       name: open5gs-nrf  

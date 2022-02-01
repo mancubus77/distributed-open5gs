@@ -9,8 +9,8 @@ data:
   ausf.yaml: |
     ausf:
       sbi:
-      - addr: 0.0.0.0
-        advertise: open5gs-ausf
+      - dev: {{ .Values.k8s.interface }}
+        advertise: open5gs-ausf.{{ .Release.Namespace }}.svc.cluster.local
     nrf:
      sbi:
       name: open5gs-nrf

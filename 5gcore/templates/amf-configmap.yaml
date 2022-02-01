@@ -9,8 +9,8 @@ data:
   amf.yaml: |
     amf:
         sbi:
-        - addr: 0.0.0.0
-          advertise: open5gs-amf
+        - dev: {{ .Values.k8s.interface }}
+          advertise: open5gs-amf.{{ .Release.Namespace }}.svc.cluster.local
         ngap:
           dev: {{ .Values.k8s.interface }}
         guami:
@@ -40,5 +40,5 @@ data:
         amf_name: open5gs-amf0
     nrf:
      sbi:
-       name: open5gs-nrf
+       name: open5gs-nrf.{{ .Release.Namespace }}.svc.cluster.local
 {{ end }}

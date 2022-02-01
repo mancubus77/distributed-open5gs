@@ -11,10 +11,10 @@ data:
        #file: /var/log/open5gs/nssf.log   
     nssf:
       sbi:     
-      - addr: 0.0.0.0
-        advertise: open5gs-nssf
+      - dev: {{ .Values.k8s.interface }}
+        advertise: open5gs-nssf.{{ .Release.Namespace }}.svc.cluster.local
       nsi:
-      - addr: open5gs-nrf
+      - addr: open5gs-nrf.{{ .Release.Namespace }}.svc.cluster.local
         port: 80
         s_nssai:
           sst: 1        

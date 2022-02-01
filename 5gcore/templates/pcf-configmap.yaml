@@ -12,8 +12,8 @@ data:
     db_uri: mongodb://mongodb-svc/open5gs    
     pcf:
       sbi:     
-      - addr: 0.0.0.0
-        advertise: open5gs-pcf
+      - dev: {{ .Values.k8s.interface }}
+        advertise: open5gs-pcf.{{ .Release.Namespace }}.svc.cluster.local
     nrf:
      sbi:
       name: open5gs-nrf 
