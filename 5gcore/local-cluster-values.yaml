@@ -32,14 +32,14 @@ mongo:
   enabled: true
 nrf:
   enabled: true
-  serviceName: open5gs-nrf
+  serviceName: open5gs-nrf.open5gcore
 nssf:
   enabled: true
 pcf:
   enabled: true
 smf:
   enabled: false
-  serviceName: open5gs-smf-shared
+  serviceName: open5gs-smf-shared.open5gcore
 udm:
   enabled: true
 udr:
