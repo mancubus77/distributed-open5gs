@@ -37,7 +37,7 @@ spec:
           imagePullPolicy: {{ .Values.open5gcore.image.pullPolicy }}
           securityContext:
             privileged: true
-          command: ["open5gs-udmd", "-c", "/open5gs/config-map/udm.yaml"]
+          command: ["open5gs-udmd", "-d", "-c", "/open5gs/config-map/udm.yaml"]
           volumeMounts:
           - name: open5gs-udm-config
             mountPath: /open5gs/config-map/udm.yaml
