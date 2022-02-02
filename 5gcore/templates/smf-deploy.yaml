@@ -42,7 +42,7 @@ spec:
           privileged: true
         command: ["/bin/sh", "-c"]
         args:
-        - open5gs-smfd -c /open5gs/config-map/smf.yaml;
+        - open5gs-smfd -d -c /open5gs/config-map/smf.yaml;
         volumeMounts:
           - name: open5gs-smf-config
             mountPath: /open5gs/config-map/smf.yaml
