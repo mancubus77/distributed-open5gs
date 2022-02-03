@@ -14,7 +14,7 @@ data:
     smf:
         sbi:     
           - addr: 0.0.0.0
-            advertise: {{ .Values.smf.serviceName }}
+            advertise: open5gs-smf-shared
             port: 80
         pfcp:
            dev: {{ .Values.k8s.interface }}
