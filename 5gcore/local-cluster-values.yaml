@@ -26,6 +26,7 @@ amf:
   mcc: 208
   mnc: 93
   tac: 7
+  serviceName: open5gs-amf-shared
 ausf:
   enabled: true
 mongo:
