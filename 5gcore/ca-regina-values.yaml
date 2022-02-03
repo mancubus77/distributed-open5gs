@@ -2,9 +2,9 @@
 
 open5gcore:
   image:
-    repository: docker.io/efatnar/open5gcore
+    repository: docker.io/adealhouet/open5gs
     pullPolicy: IfNotPresent
-    tag: "v1.1"
+    tag: "2.4.2"
 
 webui:
   enabled: false
