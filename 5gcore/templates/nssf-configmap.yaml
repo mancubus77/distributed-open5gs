@@ -11,7 +11,7 @@ data:
        #file: /var/log/open5gs/nssf.log   
     nssf:
       sbi:     
-      - dev: {{ .Values.k8s.interface }}
+      - addr: 0.0.0.0
         advertise: open5gs-nssf.{{ .Release.Namespace }}.svc.cluster.local
       nsi:
       - addr: open5gs-nrf.{{ .Release.Namespace }}.svc.cluster.local
@@ -20,5 +20,5 @@ data:
           sst: 1        
     nrf:
      sbi:
-      name: open5gs-nrf
+      name: open5gs-nrf.{{ .Release.Namespace }}.svc.cluster.local
 {{ end }}

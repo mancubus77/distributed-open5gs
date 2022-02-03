@@ -9,7 +9,7 @@ data:
   amf.yaml: |
     amf:
         sbi:
-        - dev: {{ .Values.k8s.interface }}
+        - addr: 0.0.0.0
           advertise: open5gs-amf.{{ .Release.Namespace }}.svc.cluster.local
         ngap:
           dev: {{ .Values.k8s.interface }}

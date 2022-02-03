@@ -13,7 +13,7 @@ data:
         no_ipv6: true
     smf:
         sbi:     
-          - dev: {{ .Values.k8s.interface }}
+          - addr: 0.0.0.0
             advertise: {{ .Values.smf.serviceName }}.{{ .Release.Namespace }}.svc.cluster.local
         pfcp:
            dev: {{ .Values.k8s.interface }}
