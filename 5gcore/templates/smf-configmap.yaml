@@ -13,7 +13,7 @@ data:
         no_ipv6: true
     smf:
         sbi:     
-          - addr: 0.0.0.0
+          - dev: {{ .Values.k8s.interface }}
             advertise: {{ .Values.smf.serviceName }}
             port: 80
         pfcp:
