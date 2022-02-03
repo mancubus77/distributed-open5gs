@@ -14,7 +14,7 @@ data:
     smf:
         sbi:     
           - addr: 0.0.0.0
-            advertise: {{ .Values.smf.serviceName }}.{{ .Release.Namespace }}.svc.cluster.local
+            advertise: {{ .Values.smf.serviceName }}
         pfcp:
            dev: {{ .Values.k8s.interface }}
         gtpc:
@@ -30,7 +30,7 @@ data:
         mtu: 1400
     nrf:
      sbi:
-      name: {{ .Values.nrf.serviceName }}.{{ .Release.Namespace }}.svc.cluster.local
+      name: {{ .Values.nrf.serviceName }}
     upf:
       pfcp:
         - name: open5gs-upf

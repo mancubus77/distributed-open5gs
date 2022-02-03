@@ -10,7 +10,7 @@ data:
     ausf:
       sbi:
       - addr: 0.0.0.0
-        advertise: open5gs-ausf.{{ .Release.Namespace }}.svc.cluster.local
+        advertise: open5gs-ausf
     nrf:
      sbi:
       name: open5gs-nrf

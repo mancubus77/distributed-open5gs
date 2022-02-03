@@ -12,7 +12,7 @@ data:
     udm:
       sbi:   
       - addr: 0.0.0.0
-        advertise: open5gs-udm.{{ .Release.Namespace }}.svc.cluster.local
+        advertise: open5gs-udm
     nrf:
      sbi:
       name: open5gs-nrf

@@ -13,7 +13,7 @@ data:
     pcf:
       sbi:     
       - addr: 0.0.0.0
-        advertise: open5gs-pcf.{{ .Release.Namespace }}.svc.cluster.local
+        advertise: open5gs-pcf
     nrf:
      sbi:
       name: open5gs-nrf 

@@ -10,7 +10,7 @@ data:
     amf:
         sbi:
         - addr: 0.0.0.0
-          advertise: open5gs-amf.{{ .Release.Namespace }}.svc.cluster.local
+          advertise: open5gs-amf
         ngap:
           dev: {{ .Values.k8s.interface }}
         guami:
@@ -40,5 +40,5 @@ data:
         amf_name: open5gs-amf0
     nrf:
      sbi:
-       name: open5gs-nrf.{{ .Release.Namespace }}.svc.cluster.local
+       name: open5gs-nrf
 {{ end }}
