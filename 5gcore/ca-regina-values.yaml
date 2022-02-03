@@ -4,7 +4,7 @@ open5gcore:
   image:
     repository: docker.io/adetalhouet/open5gs
     pullPolicy: IfNotPresent
-    tag: "2.4.2"
+    tag: "2.4.4"
 
 webui:
   enabled: false
