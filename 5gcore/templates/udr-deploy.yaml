@@ -19,6 +19,7 @@ metadata:
   name: open5gs-udr-d
   labels:
     epc-mode: udr
+    part-of-mesh: true
 spec:
   replicas: 1
   selector:

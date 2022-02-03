@@ -19,6 +19,7 @@ metadata:
   name: open5gs-pcf-d
   labels:
     epc-mode: pcf
+    part-of-mesh: true
 spec:
   replicas: 1
   selector:
