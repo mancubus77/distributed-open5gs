@@ -17,7 +17,7 @@ spec:
   selector:
     matchLabels:
       app: open5gs-mongodb
-      part-of-mesh: true
+      part-of-mesh: "true"
   template:
     metadata:
       annotations:

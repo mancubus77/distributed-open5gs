@@ -19,7 +19,7 @@ metadata:
   name: open5gs-upf-d
   labels:
     epc-mode: upf
-    part-of-mesh: true
+    part-of-mesh: "true"
 spec:
   replicas: 1
   selector:

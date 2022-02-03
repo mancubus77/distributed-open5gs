@@ -54,7 +54,7 @@ metadata:
   name: open5gs-webui-d
   labels:
     epc-mode: webui
-    part-of-mesh: true
+    part-of-mesh: "true"
 spec:
   replicas: 1
   selector:

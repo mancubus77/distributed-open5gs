@@ -22,7 +22,7 @@ metadata:
   name: open5gs-smf-d
   labels:
     epc-mode: smf
-    part-of-mesh: true
+    part-of-mesh: "true"
 spec:
   replicas: 1
   selector:
