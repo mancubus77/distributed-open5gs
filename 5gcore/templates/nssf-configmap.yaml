@@ -13,6 +13,7 @@ data:
       sbi:     
       - addr: 0.0.0.0
         advertise: open5gs-nssf
+        port: 80
       nsi:
       - addr: open5gs-nrf
         port: 80

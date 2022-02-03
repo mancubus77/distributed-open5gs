@@ -15,6 +15,7 @@ data:
         sbi:     
           - addr: 0.0.0.0
             advertise: {{ .Values.smf.serviceName }}
+            port: 80
         pfcp:
            dev: {{ .Values.k8s.interface }}
         gtpc:
