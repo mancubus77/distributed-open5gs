@@ -13,11 +13,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: open5gs-mongodb-d
+  labels:
+    part-of-mesh: "true"
 spec:
   selector:
     matchLabels:
       app: open5gs-mongodb
-      part-of-mesh: "true"
   template:
     metadata:
       annotations:
