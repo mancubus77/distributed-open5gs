@@ -31,8 +31,8 @@ data:
 
     # UAC Access Identities Configuration
     uacAic:
-      mps: true
-      mcs: true
+      mps: false
+      mcs: false
 
     # UAC Access Control Class
     uacAcc:
