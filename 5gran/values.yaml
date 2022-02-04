@@ -1,7 +1,7 @@
 # Default values for 5gran.
 ran:
   image:
-    repository: docker.io/adetalhouet/ueransim
+    repository: quay.io/adetalho/ueransim
     pullPolicy: Always
     tag: "v3.2.6"
   amf:
