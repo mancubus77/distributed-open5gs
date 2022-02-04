@@ -28,7 +28,7 @@ spec:
         part-of-mesh: "true"
     spec:
       containers:
-      - image: docker.io/free5gmano/nextepc-mongodb
+      - image: quay.io/adetalho/free5gmano-mongodb
         name: open5gs-mongodb
         ports:
         - containerPort: 27017
