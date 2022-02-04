@@ -13,7 +13,7 @@ data:
     pcf:
       sbi:     
       - addr: 0.0.0.0
-        advertise: open5gs-pcf
+        advertise: open5gs-pcf-shared.{{ .Release.Namespace }}.svc.cluster.local
         port: 80
     nrf:
      sbi:
