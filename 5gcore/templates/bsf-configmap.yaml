@@ -1,0 +1,19 @@
+{{ if .Values.bsf.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: open5gs-bsf-config
+  labels:
+    epc-mode: bsf
+data:
+  bsf.yaml: |
+    #logger:
+       #file: /var/log/open5gs/bsf.log
+    bsf:
+        sbi:
+          addr: 0.0.0.0
+          advertise: open5gs-bsf.{{ .Release.Namespace }}.svc.cluster.local
+    nrf:
+     sbi:
+      name: open5gs-nrf.{{ .Release.Namespace }}.svc.cluster.local
+{{ end }}
