@@ -34,6 +34,7 @@ spec:
         sidecar.istio.io/inject: "true"
       labels:
         epc-mode: nrf
+        part-of-mesh: "true"
     spec:  
       containers:
         - name: nrf

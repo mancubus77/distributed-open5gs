@@ -25,6 +25,7 @@ spec:
         sidecar.istio.io/inject: "true"
       labels:
         app: open5gs-mongodb
+        part-of-mesh: "true"
     spec:
       containers:
       - image: docker.io/free5gmano/nextepc-mongodb

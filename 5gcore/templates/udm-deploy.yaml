@@ -34,6 +34,7 @@ spec:
         sidecar.istio.io/inject: "true"
       labels:
         epc-mode: udm
+        part-of-mesh: "true"
     spec:   
       containers:
         - name: udm
