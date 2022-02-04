@@ -21,7 +21,7 @@ metadata:
   name: open5gs-amf
   annotations:
     skupper.io/proxy: http2
-    skupper.io/address: open5gs-smf-shared
+    skupper.io/address: open5gs-amf-shared
   labels:
     epc-mode: amf
 spec:
