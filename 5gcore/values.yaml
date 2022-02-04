@@ -2,7 +2,7 @@
 
 open5gcore:
   image:
-    repository: docker.io/efatnar/open5gcore
+    repository: quay.io/adetalho/open5gs
     pullPolicy: IfNotPresent
     tag: "v1.1"
 
