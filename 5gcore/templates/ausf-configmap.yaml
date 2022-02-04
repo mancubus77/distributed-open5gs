@@ -10,9 +10,8 @@ data:
     ausf:
       sbi:
       - addr: 0.0.0.0
-        advertise: open5gs-ausf
-        port: 80
+        advertise: open5gs-ausf.{{ .Release.Namespace }}.svc.cluster.local
     nrf:
      sbi:
-      name: open5gs-nrf
+      name: open5gs-nrf.{{ .Release.Namespace }}.svc.cluster.local
 {{ end }}

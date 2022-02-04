@@ -11,7 +11,6 @@ data:
         sbi:
         - addr: 0.0.0.0
           advertise: {{ .Values.amf.serviceName }}.{{ .Release.Namespace }}.svc.cluster.local
-          port: 80
         ngap:
           dev: {{ .Values.k8s.interface }}
         guami:
@@ -41,5 +40,5 @@ data:
         amf_name: open5gs-amf0
     nrf:
      sbi:
-       name: open5gs-nrf
+       name: open5gs-nrf.{{ .Release.Namespace }}.svc.cluster.local
 {{ end }}

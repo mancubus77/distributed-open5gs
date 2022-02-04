@@ -12,14 +12,12 @@ data:
     nssf:
       sbi:     
       - addr: 0.0.0.0
-        advertise: open5gs-nssf
-        port: 80
+        advertise: open5gs-nssf.{{ .Release.Namespace }}.svc.cluster.local
       nsi:
-      - addr: open5gs-nrf
-        port: 80
+      - addr: open5gs-nrf.{{ .Release.Namespace }}.svc.cluster.local
         s_nssai:
           sst: 1        
     nrf:
      sbi:
-      name: open5gs-nrf
+      name: open5gs-nrf.{{ .Release.Namespace }}.svc.cluster.local
 {{ end }}

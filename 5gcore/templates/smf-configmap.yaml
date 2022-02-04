@@ -15,7 +15,6 @@ data:
         sbi:     
           - addr: 0.0.0.0
             advertise: {{ .Values.smf.serviceName }}.{{ .Release.Namespace }}.svc.cluster.local
-            port: 80
         pfcp:
            dev: {{ .Values.k8s.interface }}
         gtpc:
@@ -31,9 +30,9 @@ data:
         mtu: 1400
     nrf:
      sbi:
-      name: {{ .Values.nrf.serviceName }}
+      name: {{ .Values.nrf.serviceName }}.{{ .Release.Namespace }}.svc.cluster.local
     upf:
       pfcp:
-        - name: open5gs-upf
+        - name: open5gs-upf.{{ .Release.Namespace }}.svc.cluster.local
           dnn: {{ .Values.dnn }}
 {{ end }}
