@@ -12,7 +12,7 @@ data:
     udm:
       sbi:   
       - addr: 0.0.0.0
-        advertise: open5gs-udm
+        advertise: open5gs-udm-shared.{{ .Release.Namespace }}.svc.cluster.local
         port: 80
     nrf:
      sbi:
