@@ -1,17 +1,18 @@
 FROM ubuntu:focal
 
-MAINTAINER Fatih Nar <fenari@gmail.com>
+MAINTAINER Alexis de Talhouët <adetalhouet89@gmail.com>
 
 ENV DEBIAN_FRONTEND noninteractive
 
 USER root
 
 RUN apt-get update && \
-   apt-get -yq dist-upgrade && \
-   apt-get install iputils-ping dnsutils && \
-   apt-get --no-install-recommends -qqy install make g++ libsctp-dev lksctp-tools iproute2 python3-pip && \
-   mkdir UERANSIM 
+   apt-get --no-install-recommends -y  install snapd make gcc g++ libsctp-dev lksctp-tools iproute2 git wget
 
-COPY build/ /UERANSIM/
+RUN wget https://cmake.org/files/v3.22/cmake-3.22.0-linux-x86_64.tar.gz && tar xf cmake-3.22.0-linux-x86_64.tar.gz \
+   && ln -s `pwd`/cmake-3.22.0-linux-x86_64/bin/cmake /usr/sbin/cmake
 
-WORKDIR /UERANSIM
+RUN git clone --recursive -b v3.2.6 https://github.com/aligungr/UERANSIM && \
+   cd UERANSIM && make
+
+WORKDIR /UERANSIM/build
