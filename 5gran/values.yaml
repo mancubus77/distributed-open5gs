@@ -2,7 +2,7 @@
 ran:
   image:
     repository: docker.io/adetalhouet/ueransim
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     tag: "v3.2.6"
   amf:
     address: 172.30.137.190
