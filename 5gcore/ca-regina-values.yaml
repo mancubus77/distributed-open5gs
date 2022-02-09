@@ -23,6 +23,8 @@ amf:
   mcc: 208
   mnc: 93
   tac: 7
+bsf:
+  enabled: false
 ausf:
   enabled: false
 mongo:
