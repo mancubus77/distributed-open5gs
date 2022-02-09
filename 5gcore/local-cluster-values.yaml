@@ -23,7 +23,7 @@ amf:
   mcc: 208
   mnc: 93
   tac: 7
-  serviceName: open5gs-amf
+  serviceName: open5gs-amf-shared
 bsf:
   enabled: true
 ausf:
@@ -37,14 +37,14 @@ nssf:
   enabled: true
 pcf:
   enabled: true
-  serviceName: open5gs-pcf
-smf:
-  enabled: true
-  serviceName: open5gs-smf
+  serviceName: open5gs-pcf-shared
 udm:
   enabled: true
-  serviceName: open5gs-udm
+  serviceName: open5gs-udm-shared
 udr:
   enabled: true
 upf:
-  enabled: true
+  enabled: false
+smf:
+  enabled: false
+  serviceName: open5gs-smf-shared

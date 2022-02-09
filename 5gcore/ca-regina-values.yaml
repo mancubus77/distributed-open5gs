@@ -34,12 +34,12 @@ nssf:
   enabled: false
 pcf:
   enabled: false
-smf:
-  enabled: true
-  serviceName: open5gs-smf-shared
 udm:
   enabled: false
 udr:
   enabled: false
+smf:
+  enabled: true
+  serviceName: open5gs-smf-shared
 upf:
   enabled: true
