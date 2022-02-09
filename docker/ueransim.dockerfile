@@ -12,7 +12,7 @@ RUN apt-get update && \
 RUN wget https://cmake.org/files/v3.22/cmake-3.22.0-linux-x86_64.tar.gz && tar xf cmake-3.22.0-linux-x86_64.tar.gz \
    && ln -s `pwd`/cmake-3.22.0-linux-x86_64/bin/cmake /usr/sbin/cmake
 
-RUN git clone --recursive -b v3.2.6 https://github.com/aligungr/UERANSIM && \
+RUN git clone --recursive -b v3.2.3 https://github.com/aligungr/UERANSIM && \
    cd UERANSIM && make
 
 WORKDIR /UERANSIM/build

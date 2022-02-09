@@ -22,7 +22,6 @@ metadata:
   name: open5gs-udm-d
   labels:
     epc-mode: udm
-    part-of-mesh: "true"
 spec:
   replicas: 1
   selector:
@@ -30,11 +29,8 @@ spec:
       epc-mode: udm
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "true"
       labels:
         epc-mode: udm
-        part-of-mesh: "true"
     spec:   
       containers:
         - name: udm

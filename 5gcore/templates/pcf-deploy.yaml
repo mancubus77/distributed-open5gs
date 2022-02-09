@@ -30,11 +30,8 @@ spec:
       epc-mode: pcf
   template:
     metadata:
-      annotations:
-        sidecar.istio.io/inject: "true"
       labels:
         epc-mode: pcf
-        part-of-mesh: "true"
     spec:    
       containers:
         - name: pcf
