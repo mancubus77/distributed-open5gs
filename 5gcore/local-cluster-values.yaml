@@ -45,6 +45,7 @@ udr:
   enabled: true
 upf:
   enabled: false
+  serviceName: open5gs-upf-shared
 smf:
   enabled: false
   serviceName: open5gs-smf-shared

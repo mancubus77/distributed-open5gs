@@ -33,6 +33,6 @@ data:
       name: {{ .Values.nrf.serviceName }}.{{ .Release.Namespace }}.svc.cluster.local
     upf:
       pfcp:
-        - name: open5gs-upf.{{ .Release.Namespace }}.svc.cluster.local
+        - name: {{ .Values.upf.serviceName }}.{{ .Release.Namespace }}.svc.cluster.local
           dnn: {{ .Values.dnn }}
 {{ end }}
