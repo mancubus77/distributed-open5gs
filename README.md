@@ -1,6 +1,8 @@
-# Distributed 5G Core with RAN + UE simulator deployment using Skupper on Red Hat Openshift
+Note - this work is a fork and adaptation of Fatih Nar's repo: https://github.com/fenar/cnvopen5gcore
 
-The goal is to distribute the user plane and have the control plane centralized. As such, as will have two clusters, one containing SMF and UPF, and the other one containing the rest of the 5G Core.
+# Distributed 5G Core using Skupper on Red Hat Openshift
+
+The goal is to distribute the user plane and have the control plane centralized. As such, we have two clusters, one containing SMF and UPF, and the other one containing the rest of the 5G Core.
 
 In the central location, called `local-cluster`, we will expose:
 - UDM
@@ -32,7 +34,7 @@ Apply the following label to the two identified clusters: `5g-core: "True"` foll
 Create a managed cluster set, along with binding and a cluster placement. The cluster `Placement` object will target any cluster matching the label created above.
 Finally, leverage the placement rule to import the managed clusters into ArgoCD using `GitOpsCluster` CR.
 ~~~
-oc apply -f managed-cluster-set.yaml`
+oc apply -f managed-cluster-set.yaml
 ~~~
 
 Here is the resulting cluster set created in ACM, along with our two clusters part of it.
@@ -73,14 +75,18 @@ And have the link up between the two sites
 Similarly as Skupper deployment, we will use an `ApplicationSet` using the same cluster placement as defined in the first step, and let Argo render `Application`.
 In order to defined what part of the 5G Core will be deployed in each cluster, we are using a Helm chart and are customizaing the values.yaml file for each cluster, identified using `{{cluster-name}}-values.yaml`.
 
-As part of the deployment, we are exposing services to Skupper to make them reachable through the L7 link created before.
+Install the application set as follow
+~~~
+oc apply -f 5gcore/distributed-5gcore-acm-appset.yaml
+~~~
 
 Once the deployment is done, you should see the following in ACM
 ![](assets/distributed-5g-acm.png)
 
+As part of the deployment, we are exposing services to Skupper to make them reachable through the L7 link created before.
+
 And you should see the services exposed through Skupper UI
 ![](assets/exposed-services.png)
-
 
 ## Provision the user equipment
 
@@ -95,10 +101,28 @@ Click "Add new subscriber" and in the `IMSI` field enter `208930000000001`. The 
 ----
 ## Deploy the gNB and the UE
 
+In order for the gNB to establish its SCTP session with AMF, it requires the AMF service IP. As such, update the values.yaml file in the 5gran folder.
+It can be retrieved using
+~~~
+oc get service -n open5gcore amf-open5gs-sctp -o jsonpath={.spec.clusterIP}
+~~~
 
+Once updated properly, apply the below manifest to create the argo application OR
+~~~
+oc apply 0f 5gran/5gran-app.yaml
+~~~
 
+OR Deploy the helm chart manually
+~~~
+helm install 5gran
+~~~
+
+Once deployed, look at the logs of gNB and UE
+![](assets/gnb-logs.png)
+
+![](assets/ue-logs.png)
 
 ## Links
-https://open5gs.org/
-https://github.com/open5gs/open5gs
-https://github.com/aligungr/UERANSIM
+- https://open5gs.org/
+- https://github.com/open5gs/open5gs
+- https://github.com/aligungr/UERANSIM
