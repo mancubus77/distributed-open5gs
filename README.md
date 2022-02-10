@@ -108,7 +108,7 @@ oc get service -n open5gcore amf-open5gs-sctp -o jsonpath={.spec.clusterIP}
 
 Once updated properly, apply the below manifest to create the argo application OR
 ~~~
-oc apply 0f 5gran/5gran-app.yaml
+oc apply -f 5gran/5gran-app.yaml
 ~~~
 
 OR Deploy the helm chart manually
