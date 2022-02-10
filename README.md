@@ -117,10 +117,15 @@ OR Deploy the helm chart manually
 helm install 5gran
 ~~~
 
-Once deployed, look at the logs of gNB and UE
+Once deployed, look at the logs of gNB and UE to validate the PDU session has properly be established
 ![](assets/gnb-logs.png)
 
 ![](assets/ue-logs.png)
+
+
+Finally, see bellow the overall interaction within Skupper
+
+![](assets/skupper-svc-interaction.png)
 
 ## Links
 - https://open5gs.org/
