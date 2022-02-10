@@ -1,72 +1,104 @@
-# 5G Core with RAN + UE simulator deployment on Red Hat Openshift with Service Mesh<br>
+# Distributed 5G Core with RAN + UE simulator deployment using Skupper on Red Hat Openshift
 
-Background: <br>
-(a) https://open5gs.org/ <br>
-(b) https://github.com/open5gs/open5gs <br>
-(c) https://github.com/aligungr/UERANSIM <br>
+The goal is to distribute the user plane and have the control plane centralized. As such, as will have two clusters, one containing SMF and UPF, and the other one containing the rest of the 5G Core.
+
+In the central location, called `local-cluster`, we will expose:
+- UDM
+- PCF
+- AMF
+- NRF
+
+In the remote location, called `ca-regina`, we will expose:
+- SMF
+
+## Prerequisites
+
+- OpenShift 4.9
+- Advanced Cluster Management 2.4
+- OpenShift GitOps on the cluster where ACM is
+- Two clusters that are imported into ACM (can be the local-cluster and another one)
+- SCTP enabled on both clusters
+    ```
+    oc create -f enablesctp.yaml
+    ```
+    Wait for machine config to be applied on all worker nodes and all worker nodes come back in to ready state.
+
+## Create a managed cluster set
+
+Apply the following label to the two identified clusters: `5g-core: "True"` following [this documentation](https://access.redhat.com/documentation/en-us/red_hat_advanced_cluster_management_for_kubernetes/2.4/html/clusters/managing-your-clusters#managing-cluster-labels)
+
+![](assets/cluster-label.png)
+
+Create a managed cluster set, along with binding and a cluster placement. The cluster `Placement` object will target any cluster matching the label created above.
+Finally, leverage the placement rule to import the managed clusters into ArgoCD using `GitOpsCluster` CR.
+~~~
+oc apply -f managed-cluster-set.yaml`
+~~~
+
+Here is the resulting cluster set created in ACM, along with our two clusters part of it.
+![](assets/cluster-set.png)
+
+In ArgoCD, we can see both `local-cluster` and `ca-regina` clusters have been successfully imported.
+![](assets/argocd-clusters.png)
+
+## Deploying Skupper
+
+Skupper connects clusters to a secure layer 7 network. It uses that network to forward local service traffic to remote clusters. For that, it requires a router in each cluster to properly foward the traffic in and out. In our scenario, we will expose some of the 5G Core services to Skupper in order to have them reachable across clusters.
+
+To establish a secure link, Skupper can use an empty secret labelled `skupper.io/type: connection-token-request`. The operator will populate the Certificate Authority, along with a Certificate and its Key in this secret.
+That secret, containing the security details to establish the link, needs to be imported to the remote site.
+To do so, we are using ACM deployables functionality: we are basically creating a `Channel`, a `Subscription` and a `PlacementRule` that will look for `Secret` objects containing this annotation `apps.open-cluster-management.io/deployables: "true"` and will ensure each cluster matching the defined `PlacementRule` will have a copy of that secret.
+
+In order to establish the layer 7 link, we will use an `ApplicationSet` using the same cluster placement as defined in previous step. ArgoCD will render an `Application` per cluster.
+Note: the `selfHeal` feature is disabled because the Skupper operation will modify the secret to populate additional information. If it is enabled, Argo will continuously erase the security details provided by Skupper, and the link won't come up.
+
+To perform all the above, appy the following manifest
+~~~
+oc apply -f skupper/skupper-acm-appset.yaml
+~~~
+
+Once done, you should see this in ACM
+![](assets/acm-skupper-appset.png)
+
+And you can browse to Skupper UI; retrieve the route using `oc get routes -n open5gcore skupper`
+
+You should have two sites registered
+![](assets/ca-regina-sites.png)
+
+And have the link up between the two sites
+![](assets/ca-regina-link.png)
+
+## Deploying Open5GCore
+
+Similarly as Skupper deployment, we will use an `ApplicationSet` using the same cluster placement as defined in the first step, and let Argo render `Application`.
+In order to defined what part of the 5G Core will be deployed in each cluster, we are using a Helm chart and are customizaing the values.yaml file for each cluster, identified using `{{cluster-name}}-values.yaml`.
+
+As part of the deployment, we are exposing services to Skupper to make them reachable through the L7 link created before.
+
+Once the deployment is done, you should see the following in ACM
+![](assets/distributed-5g-acm.png)
+
+And you should see the services exposed through Skupper UI
+![](assets/exposed-services.png)
+
+
+## Provision the user equipment
+
+The Open5GS project comes with a webui that allows you to register UE. As such, log in the UI to register the UE.
+
+Retrieve the webui URL with `oc get route -n open5gcore webui` and login using the following credentials
+- username: admin
+- password: 1423
+
+Click "Add new subscriber" and in the `IMSI` field enter `208930000000001`. The rest of the values have been configured automatically.
 
 ----
-Prerequisites: <br>
-(i) [OCP with OSM installed and configured](https://docs.openshift.com/container-platform/4.7/service_mesh/v1x/installing-ossm.html)<br>
-(ii) [Enable SCTP on OCP Reference](https://docs.openshift.com/container-platform/4.7/networking/using-sctp.html#nw-sctp-enabling_using-sctp)
-```
-oc create -f enablesctp.yaml
+## Deploy the gNB and the UE
 
-```
-Wait for machine config to be applied on all worker nodes and all worker nodes come back in to ready state. Check with; 
-```
-oc get nodes
-```
 
-----
-## [Deploying Open5GCore] 
-(1) Run 0-deploy5gcore.sh that creates the project, add project to service mesh member-roll, provisions necessary role bindings , deploy helm-charts for you and also also creates virtual istio ingress for webui. <br>
-![alt text](https://raw.githubusercontent.com/fenar/cnvopen5gcore/main/pics/Open5GCoreServiceMesh2.png)<br>
 
-----
-(2) Provision user equipment (UE) imsi (see ueransim/ueransim-ue-configmap.yaml, defaul imsi is 208930000000001) to 5gcore so your ue registration (ie running ueransim ue mode) will be allowed.
 
-Credentials: admin/1423
-
-![alt text](https://raw.githubusercontent.com/fenar/cnvopen5gcore/main/pics/Open5GSWebUI.png)<br>
-
-----
-## [Running EURANSIM as a pod with multiple containers inside] 
-(3) Use 1-deploy5gran.sh that creates the config maps and ueransim deployment with one pod that has multiple containers (gnb, ue as separate containers inside same pod) <br>
-![alt text](https://raw.githubusercontent.com/fenar/cnvopen5gcore/main/pics/ueransim-pod.png)<br>
-
-![alt text](https://raw.githubusercontent.com/fenar/cnvopen5gcore/main/pics/ueransim-gnb-cont.png)<br>
-
-![alt text](https://raw.githubusercontent.com/fenar/cnvopen5gcore/main/pics/ueransim-ue-cont.png)<br>
-
-----
-## 5GCore with GitOps
-
-(4) If you like to leverage GitOps on your deployment you can use Red Hat Openshift GitOps operator and simply point this repo with 5gcore helm path and kickstart your deployment.
-Ref: [Red Hat GitOps Operator](https://catalog.redhat.com/software/operators/detail/5fb288c70a12d20cbecc6056)<br>
-If you fail using ArgoCD due to permission errors on your project, worth to check/add necessary role to your argocd controller.
-```
-oc adm policy add-cluster-role-to-user cluster-admin -z openshift-gitops-argocd-application-controller -n openshift-gitops
-```
-ArgoCD Applications; 5GCore and 5GRAN <br>
-![alt text](https://raw.githubusercontent.com/fenar/cnvopen5gcore/main/pics/argoran2.png)<br>
-
-ArgoCD 5GCore 
-![alt text](https://raw.githubusercontent.com/fenar/cnvopen5gcore/main/pics/argo.png)<br>
-
-ArgoCD 5GRAN 
-![alt text](https://raw.githubusercontent.com/fenar/cnvopen5gcore/main/pics/argoran.png)<br>
-
-----
-
-PS: If you wonder from where to get the default ArgoCD admin password, here it is :-). <br>
-![alt text](https://raw.githubusercontent.com/fenar/cnvopen5gcore/main/pics/argopasswd.png)<br>
-
-----
-(5) Use ./3-delete5gran.sh to wipe ueransim microservices deployment
-
-----
-
-(6) Clear Enviroment run ./5-delete5gcore.sh to wipe 5gcore deployment<br> 
-
-----
+## Links
+https://open5gs.org/
+https://github.com/open5gs/open5gs
+https://github.com/aligungr/UERANSIM
