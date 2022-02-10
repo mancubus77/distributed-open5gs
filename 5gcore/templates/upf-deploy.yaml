@@ -5,9 +5,9 @@ metadata:
   name: open5gs-upf
   labels:
     epc-mode: upf
-  annotations:
-    skupper.io/proxy: udp
-    skupper.io/address: open5gs-upf-shared
+  # annotations:
+  #   skupper.io/proxy: udp
+  #   skupper.io/address: open5gs-upf-shared
 spec:
   selector:
     epc-mode: upf
