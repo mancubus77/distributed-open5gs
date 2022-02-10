@@ -4,6 +4,15 @@ kind: Namespace
 metadata:
   name: open5gcore
 ---
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  name: skupper-operator-group
+  namespace: openshift-operators
+spec:
+  targetNamespaces:
+    - openshift-operators
+---
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
