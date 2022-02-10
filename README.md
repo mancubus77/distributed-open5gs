@@ -70,7 +70,7 @@ You should have two sites registered
 And have the link up between the two sites
 ![](assets/ca-regina-link.png)
 
-## Deploying Open5GCore
+## Deploying Open5GS
 
 Similarly as Skupper deployment, we will use an `ApplicationSet` using the same cluster placement as defined in the first step, and let Argo render `Application`.
 In order to defined what part of the 5G Core will be deployed in each cluster, we are using a Helm chart and are customizaing the values.yaml file for each cluster, identified using `{{cluster-name}}-values.yaml`.
@@ -98,7 +98,6 @@ Retrieve the webui URL with `oc get route -n open5gcore webui` and login using t
 
 Click "Add new subscriber" and in the `IMSI` field enter `208930000000001`. The rest of the values have been configured automatically.
 
-----
 ## Deploy the gNB and the UE
 
 In order for the gNB to establish its SCTP session with AMF, it requires the AMF service IP. As such, update the values.yaml file in the 5gran folder.
